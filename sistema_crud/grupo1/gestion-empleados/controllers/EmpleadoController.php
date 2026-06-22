@@ -23,7 +23,18 @@ class EmpleadoController {
     }
 
     
-
+  public static function actualizar($id, $nombre, $puesto, $salario) {
+        global $conexion;
+        $stmt = $conexion->prepare("UPDATE empleados SET nombre = :nombre, puesto = :puesto, salario = :salario WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':puesto', $puesto, PDO::PARAM_STR);
+        $stmt->bindParam(':salario', $salario, PDO::PARAM_STR);
+    
+        if($stmt->execute()){
+            header("Location: index.php?msg=actualizado");
+    }
+    }
     
 
     
